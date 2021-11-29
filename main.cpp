@@ -92,6 +92,32 @@ good to go!
  */
 
 #include <iostream>
+
+struct FloatType
+{
+    float add( lhs, rhs );
+    float subtract( lhs, rhs );
+    float multiply( lhs, rhs );
+    float divide( lhs, rhs );
+};
+
+struct DoubleType
+{
+    double add( lhs, rhs );
+    double subtract( lhs, rhs );
+    double multiply( lhs, rhs );
+    double divide( lhs, rhs );
+
+};
+
+struct IntType
+{   
+    int add( lhs, rhs );
+    int subtract( lhs, rhs );
+    int multiply( lhs, rhs );
+    int divide( lhs, rhs );
+};
+
 int main() 
 {
     FloatType ft;
