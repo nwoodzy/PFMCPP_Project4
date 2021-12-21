@@ -187,11 +187,20 @@ int main()
 
  Wait for my code review.
  */
-
+1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
+         IntType should own a heap-allocated int, for example.
 #include <iostream>
 
 struct FloatType
 {
+    FloatType() : value( new int ) {}
+    ~FloatType()
+    {
+        delete value;
+        value = nullptr;
+    }
+    int* value;
+    
     float add( float lhs, float rhs )
     {
         return lhs + rhs;
