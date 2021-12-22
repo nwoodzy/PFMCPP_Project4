@@ -133,28 +133,32 @@ struct FloatType
     }
     float* value;
 
-    float add( float rhs )
+    FloatType& add( float rhs )
     {
-        return *value += rhs;
+        *value += rhs;
+        return *this;
     }
 
-    float subtract( float rhs )
+    FloatType& subtract( float rhs )
     {
-        return *value -= rhs;
+        *value -= rhs;
+        return *this;
     }
-    float multiply( float rhs )
+    FloatType& multiply( float rhs )
     {
-        return *value *= rhs;
+        *value *= rhs;
+        return *this;
     }
     
-    float divide( float rhs )
+    FloatType& divide( float rhs )
     {
         if ( *value == 0.0f )
         {
             std::cout << std::endl;
             std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
         }
-        return *value /= rhs;
+        *value /= rhs;
+        return *this;
     }
 };
 
@@ -168,26 +172,30 @@ struct DoubleType
     }
     double* value;
 
-    double add( double lhs, double rhs )
+    DoubleType& add( double rhs )
     {
-        return lhs + rhs;
+        *value += rhs;
+        return *this;
     }
-    double subtract( double lhs, double rhs )
+    DoubleType& subtract( double rhs )
     {
-        return lhs - rhs;
+        *value -= rhs;
+        return *this;
     }
-    double multiply( double lhs, double rhs )
+    DoubleType& multiply( double rhs )
     {
-        return lhs * rhs;
+        *value *= rhs;
+        return *this;
     }
-    double divide( double lhs, double rhs )
+    DoubleType& divide( double rhs )
     {
         if (rhs == 0.0)
         {
             std::cout << std::endl;
             std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
         }
-        return lhs / rhs;
+        *value /= rhs;
+        return *this;
     }
 
 };
@@ -202,13 +210,15 @@ struct IntType
     }
     int* value;
 
-    int add( int lhs, int rhs )
+    IntType& add( int rhs )
     {
-        return lhs + rhs;
+        *value += rhs;
+        return *this;
     }
-    int subtract( int lhs, int rhs )
+    IntType& subtract( int lhs, int rhs )
     {
-        return lhs - rhs;
+        *value -= rhs;
+        return *this;
     }
     int multiply( int lhs, int rhs )
     {
