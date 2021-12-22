@@ -109,7 +109,12 @@ inf
 good to go!
 
 
-
+ 3) modify those add/subtract/divide/multiply member functions from chapter 2 on it
+         a) make them modify the owned numeric type
+         b) set them up so they can be chained together.
+             i.e.
+             DoubleType dt(3.5);
+             dt.add(3.0).multiply(-2.5).divide(7.2); //an example of chaining
 
 
 */
@@ -128,28 +133,28 @@ struct FloatType
     }
     float* value;
 
-    float add( float lhs, float rhs )
+    float add( float rhs )
     {
-        return lhs + rhs;
+        return *value += rhs;
     }
 
-    float subtract( float lhs, float rhs )
+    float subtract( float rhs )
     {
-        return lhs - rhs;
+        return *value -= rhs;
     }
-    float multiply( float lhs, float rhs )
+    float multiply( float rhs )
     {
-        return lhs * rhs;
+        return *value *= rhs;
     }
     
-    float divide( float lhs, float rhs )
+    float divide( float rhs )
     {
-        if (rhs == 0.0f)
+        if ( *value == 0.0f )
         {
             std::cout << std::endl;
             std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
         }
-        return lhs / rhs;
+        return *value /= rhs;
     }
 };
 
