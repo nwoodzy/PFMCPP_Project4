@@ -113,8 +113,113 @@ good to go!
 
 
 */
-
 #include <iostream>
+struct FloatType;
+struct IntType;
+struct DoubleType;
+
+struct FloatType
+{
+    FloatType(float ft) : value( new float(ft) ) {} 
+    ~FloatType()
+    {
+        delete value;
+        value = nullptr;
+    }
+    float* value;
+
+    float add( float lhs, float rhs )
+    {
+        return lhs + rhs;
+    }
+
+    float subtract( float lhs, float rhs )
+    {
+        return lhs - rhs;
+    }
+    float multiply( float lhs, float rhs )
+    {
+        return lhs * rhs;
+    }
+    
+    float divide( float lhs, float rhs )
+    {
+        if (rhs == 0.0f)
+        {
+            std::cout << std::endl;
+            std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
+        }
+        return lhs / rhs;
+    }
+};
+
+struct DoubleType
+{
+    DoubleType( double dt ) : value( new double (dt) ) {}
+    ~DoubleType()
+    {
+        delete value;
+        value = nullptr;
+    }
+    double* value;
+
+    double add( double lhs, double rhs )
+    {
+        return lhs + rhs;
+    }
+    double subtract( double lhs, double rhs )
+    {
+        return lhs - rhs;
+    }
+    double multiply( double lhs, double rhs )
+    {
+        return lhs * rhs;
+    }
+    double divide( double lhs, double rhs )
+    {
+        if (rhs == 0.0)
+        {
+            std::cout << std::endl;
+            std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
+        }
+        return lhs / rhs;
+    }
+
+};
+
+struct IntType
+{   
+    IntType( int it ) : value( new int (it) ) {}
+    ~IntType()
+    {
+        delete value;
+        value = nullptr;
+    }
+    int* value;
+
+    int add( int lhs, int rhs )
+    {
+        return lhs + rhs;
+    }
+    int subtract( int lhs, int rhs )
+    {
+        return lhs - rhs;
+    }
+    int multiply( int lhs, int rhs )
+    {
+        return lhs * rhs;
+    }
+    int divide( int lhs, int rhs )
+    {
+        if (rhs == 0)
+        {
+            std::cout << "error, integer division by zero will crash the program!" << std::endl;
+            std::cout << "returning lhs" << std::endl;
+            return lhs;
+        }
+        return lhs / rhs;
+    }
+};
 
 int main()
 {   
@@ -187,133 +292,3 @@ int main()
 
  Wait for my code review.
  */
-1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
-         IntType should own a heap-allocated int, for example.
-#include <iostream>
-
-struct FloatType
-{
-    FloatType() : value( new int ) {}
-    ~FloatType()
-    {
-        delete value;
-        value = nullptr;
-    }
-    int* value;
-    
-    float add( float lhs, float rhs )
-    {
-        return lhs + rhs;
-    }
-
-    float subtract( float lhs, float rhs )
-    {
-        return lhs - rhs;
-    }
-    float multiply( float lhs, float rhs )
-    {
-        return lhs * rhs;
-    }
-    
-    float divide( float lhs, float rhs )
-    {
-        if (rhs == 0.0f)
-        {
-            std::cout << std::endl;
-            std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
-        }
-        return lhs / rhs;
-    }
-};
-
-struct DoubleType
-{
-    double add( double lhs, double rhs )
-    {
-        return lhs + rhs;
-    }
-    double subtract( double lhs, double rhs )
-    {
-        return lhs - rhs;
-    }
-    double multiply( double lhs, double rhs )
-    {
-        return lhs * rhs;
-    }
-    double divide( double lhs, double rhs )
-    {
-        if (rhs == 0.0)
-        {
-            std::cout << std::endl;
-            std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
-        }
-        return lhs / rhs;
-    }
-
-};
-
-struct IntType
-{   
-    int add( int lhs, int rhs )
-    {
-        return lhs + rhs;
-    }
-    int subtract( int lhs, int rhs )
-    {
-        return lhs - rhs;
-    }
-    int multiply( int lhs, int rhs )
-    {
-        return lhs * rhs;
-    }
-    int divide( int lhs, int rhs )
-    {
-        if (rhs == 0)
-        {
-            std::cout << "error, integer division by zero will crash the program!" << std::endl;
-            std::cout << "returning lhs" << std::endl;
-            return lhs;
-        }
-        return lhs / rhs;
-    }
-};
-
-int main() 
-{
-    FloatType ft;
-    std::cout << "result of ft.add(): " << ft.add( 123.456f, 432.1f) << std::endl;
-    std::cout << "result of ft.subtract(): " << ft.subtract( 123.456f, 432.1f) << std::endl;
-    std::cout << "result of ft.multiply(): " << ft.multiply( 123.456f, 432.1f) << std::endl;
-    std::cout << "result of ft.divide(): " << ft.divide( 123.456f, 432.1f) << std::endl;
-
-    std::cout << "result of ft.add(): " << ft.add( 4444.56f, 0.0f)  << std::endl;
-    std::cout << "result of ft.subtract(): " << ft.subtract( 4444.56f, 0.0f) << std::endl;
-    std::cout << "result of ft.multiply(): " << ft.multiply( 4444.56f, 0.0f) << std::endl;
-    std::cout << "result of ft.divide(): " << ft.divide( 4444.56f, 0.0f) << std::endl;
-
-    DoubleType db;
-    std::cout << "result of db.add(): " << db.add( 123.456, 432.1) << std::endl;
-    std::cout << "result of db.subtract(): " << db.subtract( 123.456, 432.1) << std::endl;
-    std::cout << "result of db.multiply(): " << db.multiply( 123.456, 432.1) << std::endl;
-    std::cout << "result of db.divide(): " << db.divide( 123.456, 432.1) << std::endl;
-
-    std::cout << "result of db.add(): " << db.add( 123.456, 0.0) << std::endl;
-    std::cout << "result of db.subtract(): " << db.subtract( 123.456, 0.0) << std::endl;
-    std::cout << "result of db.multiply(): " << db.multiply( 123.456, 0.0) << std::endl;
-    std::cout << "result of db.divide(): " << db.divide( 123.456, 0.0) << std::endl;
-
-    IntType i;
-    std::cout << "result of i.add(): " << i.add( 10, 20) << std::endl;
-    std::cout << "result of i.subtract(): " << i.subtract( 10, 20) << std::endl;
-    std::cout << "result of i.multiply(): " << i.multiply( 10, 20) << std::endl;
-    std::cout << "result of i.divide(): " << i.divide( 10, 20) << std::endl;
-
-    std::cout << "result of i.add(): " << i.add( 10, 0) << std::endl;
-    std::cout << "result of i.subtract(): " << i.subtract( 10, 0) << std::endl;
-    std::cout << "result of i.multiply(): " << i.multiply( 10, 0) << std::endl;
-    std::cout << "result of i.divide(): " << i.divide( 10, 0) << std::endl;
-
-    std::cout << "good to go!" << std::endl;
-}
-
-
