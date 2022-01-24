@@ -33,7 +33,7 @@
  9) click the [run] button.  Clear up any errors or warnings as best you can.
 
  */
-
+/*
 void part3()
 {
     FloatType ft( 5.5f );
@@ -50,7 +50,7 @@ void part3()
     std::cout << "FloatType x IntType  =  " << it.multiply( ft ) << std::endl;
     std::cout << "(IntType + DoubleType + FloatType) x 24 = " << it.add( dt ).add( ft ).multiply( 24 ) << std::endl;
 }
-
+*/
 /*
 your program should generate the following output EXACTLY.
 This includes the warnings.
@@ -132,10 +132,12 @@ struct FloatType
     }
     float* value;
 
-    FloatType& add( const FloatType& ft );
-    FloatType& subtract( const FloatType& ft );
-    FloatType& multiply( const FloatType& ft );
-    FloatType& divide( const FloatType& ft );
+    operator float() { return *value; }
+
+    FloatType& add( float rhs );
+    FloatType& subtract( float rhs );
+    FloatType& multiply( float rhs );
+    FloatType& divide( float rhs );
 };
 
 FloatType& FloatType::add( float rhs )
@@ -149,6 +151,7 @@ FloatType& FloatType::subtract( float rhs )
     *value -= rhs;
     return *this;
 }
+
 FloatType& FloatType::multiply( float rhs )
 {
     *value *= rhs;
@@ -175,28 +178,30 @@ struct DoubleType
     }
     double* value;
 
-    DoubleType& add( const DoubleType& ft );
-    DoubleType& subtract( const DoubleType& ft );
-    DoubleType& multiply( const DoubleType& ft );
-    DoubleType& divide( const DoubleType& ft );
+    operator double() { return *value; }
+
+    DoubleType& add( double rhs );
+    DoubleType& subtract( double rhs );
+    DoubleType& multiply( double rhs );
+    DoubleType& divide( double rhs );
 };
 
-DoubleType& DoublType::add( double rhs )
+DoubleType& DoubleType::add( double rhs )
 {
     *value += rhs;
     return *this;
 }
-DoubleType& DoublType::subtract( double rhs )
+DoubleType& DoubleType::subtract( double rhs )
 {
     *value -= rhs;
     return *this;
 }
-DoubleType& DoublType::multiply( double rhs )
+DoubleType& DoubleType::multiply( double rhs )
 {
     *value *= rhs;
     return *this;
 }
-DoubleType& DoublType::divide( double rhs )
+DoubleType& DoubleType::divide( double rhs )
 {
     if (rhs == 0.)
     {
@@ -216,10 +221,12 @@ struct IntType
     }
     int* value;
 
-    IntType& add( const IntType& ft );
-    IntType& subtract( const IntType& ft );
-    IntType& multiply( const IntType& ft );
-    IntType& divide( const IntType& ft );
+    operator int() { return *value; }
+
+    IntType& add( int rhs );
+    IntType& subtract( int rhs );
+    IntType& multiply( int rhs );
+    IntType& divide( int rhs );
 };
 IntType& IntType::add( int rhs )
 {
