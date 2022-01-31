@@ -1,87 +1,81 @@
 /*
- Project 4 - Part 3 / 9
- Video: Chapter 4 Part 3 
- Casting
+ Project 4: Part 4 / 9
+ Chapter 4 Part 7
+ Function/Constructor Overloading
 
- Create a branch named Part3
+ Create a branch named Part4
  
- do not remove anything from main().  you'll be revising your main() to work with these new code changes.
- 
+ Do not delete your previous main. you will be adding to it.
     Build/Run often with this task to make sure you're not breaking the code with each step.
     I recommend committing after you get each step working so you can revert to a working version easily if needed.
-
- 1) remove your functions that accepted a User-Defined Type
  
- 2) remove any getValue() functions if you added them
+ 1) add pow() functions, and a powInternal() function to each of your UDTs
+     a) your pow() functions should call powInternal()
+     b) add a pow() whose argument type is the primitive your UDT owns.  the argument should be passed by copy.
+     c) for each UDT in the file, your class should have pow() overloads that take that UDT as the function argument.
+         the argument should be passed as const ref
+         i.e. if you had UDTs named IntType, FloatType, DoubleType
+             in your IntType class, you'd have:
+                 pow(const IntType&),
+                 pow(const FloatType&),
+                 pow(const DoubleType&),
+                 and pow(int)
+     d) be sure to remember the rules about what member functions can be called on const objects.
+             (const objects can only call their const member functions)
+     e) the pow() functions should be chainable.
  
- 3) move all of your add/subtract/multiply/divide implementations out of the class.
-  
- 4) add user-defined conversion functions that convert to the numeric type your object holds.
-        i.e. if your type holds an int, you'll need an operator int() function.
+ 2) your powInternal() function should do something like this in its body:    *val = std::pow( *val, arg );
+         where 'arg' is the passed-in type, converted to whatever type your object is holding.
+             if your UDT owns an int, then arg would be an int.
+             if your UDT owns a float, then arg would be a float.
+         std::pow's documentation is found here: https://en.cppreference.com/w/cpp/numeric/math/pow so be sure to include
+             the proper header file listed there.
+         powInternal() should be chainable.
+         powInternal() should be a private member function
  
- 5) make your member variable private.
-         this conversion function should be the ONLY WAY to access the held value.
-         use the proper casting technique to invoke this conversion function
+ 3) modify the Point class below to have 3 Constructors that accept your UDTs and one that accepts primitives.
+     a) make the constructor that takes primitives initialize the two member variables.
+     b) for each of your 3 Ctors that accept UDTs: correctly implement a Delegating Constructor that calls the constructor which takes primitives
+     c) overload the multiply() function so it can accept each of your UDTs.  I've added an implementation you can mimick for this function.
+     d) add a toString() function to the Point class that prints out the x and y members via std::cout.
  
- 6) make sure it compiles & runs without errors.
+ 4) mark your UDT constructors as 'explicit'.  
+    Adding this keyword prevents the compiler from implicitly creating instances of your UDT whenever primitives are passed to functions that take your UDT by const reference.
+    This keyword means you can only create an instance of the class by Explicitly writing the type name.
+    You can learn more about the explicit keyword here: 
+    https://en.cppreference.com/w/cpp/language/explicit
  
- 7) use your knowledge of casting to remove any conversion warnings. 
-
- 8) insert 'part3();' before the 'good to go' at the end of your main(); 
-        move this part3 function to before main()
-
- 9) click the [run] button.  Clear up any errors or warnings as best you can.
-
+ 5) insert part4(); at the end of main, before the 'good to go'
+ 
+ 6) make sure it compiles without errors.
+ 
+ You will need to use Forward Declaration and out-of-class definitions to complete this.
  */
-/*
-void part3()
-{
-    FloatType ft( 5.5f );
-    DoubleType dt( 11.1 );
-    IntType it ( 34 );
-    DoubleType pi( 3.14 );
-
-    std::cout << "The result of FloatType^4 divided by IntType is: " << ft.multiply( ft ).multiply( ft ).divide( it ) << std::endl;
-    std::cout << "The result of DoubleType times 3 plus IntType is : " << dt.multiply( 3 ).add( it ) << std::endl;
-    std::cout << "The result of IntType divided by 3.14 multiplied by DoubleType minus FloatType is: " << it.divide( pi ).multiply( dt ).subtract( ft ) << std::endl;
-    std::cout << "An operation followed by attempts to divide by 0, which are ignored and warns user: " << std::endl;
-    std::cout << it.multiply(it).divide(0).divide(0.0f).divide(0.0) << std::endl;
-    
-    std::cout << "FloatType x IntType  =  " << it.multiply( ft ) << std::endl;
-    std::cout << "(IntType + DoubleType + FloatType) x 24 = " << it.add( dt ).add( ft ).multiply( 24 ) << std::endl;
-}
-*/
+ 
 /*
 your program should generate the following output EXACTLY.
-This includes the warnings.
-The output should have zero warnings.
-Use a service like https://www.diffchecker.com/diff to compare your output. 
-
+This includes the warnings.  
+ The output should have zero warnings.
 FloatType add result=4
 FloatType subtract result=2
 FloatType multiply result=4
 FloatType divide result=0.25
-
 DoubleType add result=4
 DoubleType subtract result=2
 DoubleType multiply result=4
 DoubleType divide result=0.8
-
 IntType add result=4
 IntType subtract result=2
 IntType multiply result=4
 IntType divide result=1
-
 Chain calculation = 590
 New value of ft = (ft + 3.0f) * 1.5f / 5.0f = 0.975
 ---------------------
-
 Initial value of dt: 0.8
 Initial value of it: 590
 Use of function concatenation (mixed type arguments) 
 New value of dt = (dt * it) / 5.0f + ft = 95.375
 ---------------------
-
 Intercept division by 0 
 New value of it = it / 0 = error: integer division by zero is an error and will crash the program!
 590
@@ -90,7 +84,6 @@ inf
 New value of dt = dt / 0 = warning: floating point division by zero!
 inf
 ---------------------
-
 The result of FloatType^4 divided by IntType is: 26.9136
 The result of DoubleType times 3 plus IntType is : 67.3
 The result of IntType divided by 3.14 multiplied by DoubleType minus FloatType is: 711
@@ -101,8 +94,46 @@ error: integer division by zero is an error and will crash the program!
 505521
 FloatType x IntType  =  13143546
 (IntType + DoubleType + FloatType) x 24 = 315447336
+Power tests with FloatType 
+pow(ft1, floatExp) = 2^2 = 4
+pow(ft1, itExp) = 4^2 = 16
+pow(ft1, ftExp) = 16^2 = 256
+pow(ft1, dtExp) = 256^2 = 65536
+---------------------
+Power tests with DoubleType 
+pow(dt1, doubleExp) = 2^2 = 4
+pow(dt1, itExp) = 4^2 = 16
+pow(dt1, ftExp) = 16^2 = 256
+pow(dt1, dtExp) = 256^2 = 65536
+---------------------
+Power tests with IntType 
+pow(it1, intExp) = 2^2 = 4
+pow(it1, itExp) = 4^2 = 16
+pow(it1, ftExp) = 16^2 = 256
+pow(it1, dtExp) = 256^2 = 65536
+===============================
+Point tests with float argument:
+Point { x: 3, y: 6 }
+Multiplication factor: 6
+Point { x: 18, y: 36 }
+---------------------
+Point tests with FloatType argument:
+Point { x: 3, y: 3 }
+Multiplication factor: 3
+Point { x: 9, y: 9 }
+---------------------
+Point tests with DoubleType argument:
+Point { x: 3, y: 4 }
+Multiplication factor: 4
+Point { x: 12, y: 16 }
+---------------------
+Point tests with IntType argument:
+Point { x: 3, y: 4 }
+Multiplication factor: 5
+Point { x: 15, y: 20 }
+---------------------
 good to go!
-
+Use a service like https://www.diffchecker.com/diff to compare your output. 
 */
 
 struct A {};
@@ -118,13 +149,15 @@ struct HeapA
 
 
 #include <iostream>
+#include <cmath>
+
 struct FloatType;
 struct IntType;
 struct DoubleType;
 
 struct FloatType
 {
-    FloatType(float ft) : value( new float(ft) ) {} 
+    explicit FloatType(float val) : value( new float(val) ) {} 
     ~FloatType()
     {
         delete value;
@@ -136,9 +169,16 @@ struct FloatType
     FloatType& multiply( float rhs );
     FloatType& divide( float rhs );
 
-    operator float() { return *value; }
-    private: 
+    FloatType& pow( const FloatType& ft );
+    FloatType& pow( const IntType& it );
+    FloatType& pow( const DoubleType& dt );
+    FloatType& pow( float val );
+
+    operator float() const { return *value; }
+
+private: 
     float* value;
+    FloatType& powInternal(float arg);
 };
 
 FloatType& FloatType::add( float rhs )
@@ -171,7 +211,7 @@ FloatType& FloatType::divide( float rhs )
 
 struct DoubleType
 {
-    DoubleType( double dt ) : value( new double (dt) ) {}
+    explicit DoubleType( double val ) : value( new double (val) ) {}
     ~DoubleType()
     {
         delete value;
@@ -183,9 +223,16 @@ struct DoubleType
     DoubleType& multiply( double rhs );
     DoubleType& divide( double rhs );
 
+    DoubleType& pow( double val );
+    DoubleType& pow( const DoubleType& );
+    DoubleType& pow( const FloatType& );
+    DoubleType& pow( const IntType& );
+
     operator double() { return *value; }
-    private: 
+
+private: 
     double* value;
+    DoubleType& powInternal( double arg );
 };
 
 DoubleType& DoubleType::add( double rhs )
@@ -215,7 +262,7 @@ DoubleType& DoubleType::divide( double rhs )
 
 struct IntType
 {   
-    IntType( int it ) : value( new int (it) ) {}
+    explicit IntType( int val ) : value( new int (val) ) {}
     ~IntType()
     {
         delete value;
@@ -227,10 +274,17 @@ struct IntType
     IntType& multiply( int rhs );
     IntType& divide( int rhs );
 
+    IntType& pow( const IntType& );
+    IntType& pow( const DoubleType& );
+    IntType& pow( const FloatType& );
+    IntType& pow(int val);
+
     operator int() { return *value; }
-    private:
+private:
     int* value;
+    IntType& powInternal( int arg );
 };
+
 IntType& IntType::add( int rhs )
 {
     *value += rhs;
@@ -256,6 +310,71 @@ IntType& IntType::divide( int rhs )
     {
         *value /= rhs;
     }
+    return *this;
+}
+FloatType& FloatType::pow( float val )
+{
+    return powInternal( val );
+}
+FloatType& FloatType::pow( const FloatType& ft)
+{
+    return powInternal( ft );
+}
+FloatType& FloatType::pow( const IntType& it)
+{
+    return powInternal( static_cast<float>(it) )
+}
+FloatType& FloatType::pow( const DoubleType& dt )
+{
+    return powInternal( static_cast<float>(dt) )
+}
+FloatType& FloatType::powInternal( float arg )
+{
+    *value = std::pow( *value, arg );
+    return *this;
+}
+
+DoubleType& DoubleType::pow( const FloatType& ft )
+{
+    return powInternal( static_cast<double>(ft) );
+}
+DoubleType& DoubleType::pow( const IntType& it )
+{
+    return powInternal( static_cast<double>(it) );
+}
+DoubleType& DoubleType::pow( const DoubleType& dt )
+{
+    return powInternal( dt );
+}
+DoubleType& DoubleType::pow( double val )
+{
+    return powInternal( val );
+}
+DoubleType& DoubleType::powInternal( double arg )
+{
+    *value = std::pow( *value, arg );
+    return *this;
+}
+
+IntType& IntType::pow( const FloatType& ft )
+{
+    return powInternal( static_cast<int>(ft));
+}
+IntType& IntType::pow( const DoubleType& dt )
+{
+    return powInternal( static_cast<int>(dt));
+}
+IntType& IntType::pow( const IntType& it )
+{
+    return powInternal( it );
+}
+IntType& IntType::pow( int val )
+{
+    return powInternal( val );
+}
+IntType& IntType::powInternal( int arg )
+{
+    *value = std::pow( *value, arg );
     return *this;
 }
 
