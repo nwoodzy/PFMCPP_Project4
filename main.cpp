@@ -38,7 +38,13 @@
      b) for each of your 3 Ctors that accept UDTs: correctly implement a Delegating Constructor that calls the constructor which takes primitives
      c) overload the multiply() function so it can accept each of your UDTs.  I've added an implementation you can mimick for this function.
      d) add a toString() function to the Point class that prints out the x and y members via std::cout.
- 
+struct Point
+{
+    Point( FloatType& fta,  ){}
+    Point( DoubleType& ){}
+    Point( IntType& ) {}
+    Point()
+}
  4) mark your UDT constructors as 'explicit'.  
     Adding this keyword prevents the compiler from implicitly creating instances of your UDT whenever primitives are passed to functions that take your UDT by const reference.
     This keyword means you can only create an instance of the class by Explicitly writing the type name.
@@ -228,7 +234,7 @@ struct DoubleType
     DoubleType& pow( const FloatType& );
     DoubleType& pow( const IntType& );
 
-    operator double() { return *value; }
+    operator double()const{ return *value; }
 
 private: 
     double* value;
@@ -279,7 +285,7 @@ struct IntType
     IntType& pow( const FloatType& );
     IntType& pow(int val);
 
-    operator int() { return *value; }
+    operator int() const{ return *value; }
 private:
     int* value;
     IntType& powInternal( int arg );
@@ -322,11 +328,11 @@ FloatType& FloatType::pow( const FloatType& ft)
 }
 FloatType& FloatType::pow( const IntType& it)
 {
-    return powInternal( static_cast<float>(it) )
+    return powInternal( static_cast<float>(it) );
 }
 FloatType& FloatType::pow( const DoubleType& dt )
 {
-    return powInternal( static_cast<float>(dt) )
+    return powInternal( static_cast<float>(dt) );
 }
 FloatType& FloatType::powInternal( float arg )
 {
