@@ -464,7 +464,7 @@ void part4()
     std::cout << "pow(ft1, itExp) = " << ft1 << "^" << itExp << " = " << ft1.pow(itExp)  << std::endl;
     std::cout << "pow(ft1, ftExp) = " << ft1 << "^" << ftExp << " = " << ft1.pow(ftExp)  << std::endl;    
     std::cout << "pow(ft1, dtExp) = " << ft1 << "^" << dtExp << " = " << ft1.pow(dtExp)  << std::endl;    
-    std::cout << "---------------------\n" << std::endl;  
+    std::cout << "---------------------" << std::endl;  
 
     // Power tests with DoubleType
     std::cout << "Power tests with DoubleType " << std::endl;
@@ -472,7 +472,7 @@ void part4()
     std::cout << "pow(dt1, itExp) = " << dt1 << "^" << itExp << " = " << dt1.pow(itExp)  << std::endl;
     std::cout << "pow(dt1, ftExp) = " << dt1 << "^" << ftExp << " = " << dt1.pow(ftExp)  << std::endl;    
     std::cout << "pow(dt1, dtExp) = " << dt1 << "^" << dtExp << " = " << dt1.pow(dtExp)  << std::endl;    
-    std::cout << "---------------------\n" << std::endl;    
+    std::cout << "---------------------" << std::endl;    
 
     // Power tests with IntType
     std::cout << "Power tests with IntType " << std::endl;
@@ -480,7 +480,7 @@ void part4()
     std::cout << "pow(it1, itExp) = " << it1 << "^" << itExp << " = " << it1.pow(itExp)  << std::endl;
     std::cout << "pow(it1, ftExp) = " << it1 << "^" << ftExp << " = " << it1.pow(ftExp)  << std::endl;    
     std::cout << "pow(it1, dtExp) = " << it1 << "^" << dtExp << " = " << it1.pow(dtExp)  << std::endl;    
-    std::cout << "===============================\n" << std::endl; 
+    std::cout << "===============================" << std::endl; 
 
     // ------------------------------------------------------------
     //                          Point tests
@@ -497,7 +497,7 @@ void part4()
     std::cout << "Multiplication factor: " << floatMul << std::endl;
     p0.multiply(floatMul); 
     p0.toString();   
-    std::cout << "---------------------\n" << std::endl;
+    std::cout << "---------------------" << std::endl;
 
     // Point tests with FloatType
     std::cout << "Point tests with FloatType argument:" << std::endl;
@@ -506,7 +506,7 @@ void part4()
     std::cout << "Multiplication factor: " << ft2 << std::endl;
     p1.multiply(ft2); 
     p1.toString();   
-    std::cout << "---------------------\n" << std::endl;
+    std::cout << "---------------------" << std::endl;
 
     // Point tests with DoubleType
     std::cout << "Point tests with DoubleType argument:" << std::endl;
@@ -515,7 +515,7 @@ void part4()
     std::cout << "Multiplication factor: " << dt2 << std::endl;
     p2.multiply(dt2); 
     p2.toString();   
-    std::cout << "---------------------\n" << std::endl;
+    std::cout << "---------------------" << std::endl;
 
     // Point tests with IntType
     std::cout << "Point tests with IntType argument:" << std::endl;
@@ -524,7 +524,7 @@ void part4()
     std::cout << "Multiplication factor: " << it2 << std::endl;
     p3.multiply(it2); 
     p3.toString();   
-    std::cout << "---------------------\n" << std::endl;
+    std::cout << "---------------------" << std::endl;
 }
 
 
@@ -551,14 +551,14 @@ int main()
     std::cout << "IntType add result=" << it.add(2) << std::endl;
     std::cout << "IntType subtract result=" << it.subtract(2) << std::endl;
     std::cout << "IntType multiply result=" << it.multiply(2) << std::endl;
-    std::cout << "IntType divide result=" << it.divide(3) << std::endl << std::endl;
+    std::cout << "IntType divide result=" << it.divide(3) << std::endl;
     std::cout << "Chain calculation = " << (it.multiply(1000).divide(2).subtract(10).add(100)) << std::endl;
 
         // FloatType object instanciation and method tests
     // --------
     std::cout << "New value of ft = (ft + 3.0f) * 1.5f / 5.0f = " << (ft.add( 3.0f ).multiply(1.5f).divide(5.0f)) << std::endl;
        
-    std::cout << "---------------------\n" << std::endl; 
+    std::cout << "---------------------" << std::endl; 
     
     // DoubleType/IntType object instanciation and method tests
     // --------
@@ -568,7 +568,7 @@ int main()
     std::cout << "Use of function concatenation (mixed type arguments) " << std::endl;
     std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << (dt.multiply(it).divide(static_cast<double>(5.0f)).add(static_cast<double>(ft))) << std::endl;
 
-    std::cout << "---------------------\n" << std::endl; 
+    std::cout << "---------------------" << std::endl; 
     
     // Intercept division by 0
     // --------
@@ -577,7 +577,7 @@ int main()
     std::cout << "New value of ft = ft / 0 = " << ft.divide(0) << std::endl;
     std::cout << "New value of dt = dt / 0 = " << dt.divide(0) << std::endl;
 
-    std::cout << "---------------------\n" << std::endl; 
+    std::cout << "---------------------" << std::endl; 
 
     part3();
     part4();
